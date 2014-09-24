@@ -5,7 +5,8 @@ that imitates decoding part of a machine translation architecture.
 The script currently depends of groundhog. The profiling results
 and also pydotprint outputs are also stored in this repository.
 
-###Results
+Results
+=======
 
 So far I tried three different setups:
 
