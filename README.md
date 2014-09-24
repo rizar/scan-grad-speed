@@ -13,8 +13,15 @@ The following versions of theano and groundhog were used:
 Results
 =======
 
-So far I tried three different setups:
+First I tried three different setups:
 
-* at my laptop (cpu-rizar-laptop), forward pass  26.5%, backward pass 73.1%
-* at bart10, cpu (cpu-bart10), forward pass 34.1%, backward pass 65.7%
-* at bart10, gpu (gpu-bart10), forward pass 15.5%, backward pass 79.6%
+* at my laptop (rnned-cpu-rizar-laptop), forward pass  26.5%, backward pass 73.1%
+* at bart10, cpu (rnned-cpu-bart10), forward pass 34.1%, backward pass 65.7%
+* at bart10, gpu (rnned-gpu-bart10), forward pass 15.5%, backward pass 79.6%
+
+Then I rewrote groundhog code in pure theano and got rid of mask:
+
+* at bart10, gpu (noghog-gpu-bart10), forward pass 15.9%, backward pass 81.5%
+
+which is still quite bad. So we got a script that reproduces the problem in pure theano.
+
