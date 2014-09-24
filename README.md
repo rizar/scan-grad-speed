@@ -5,6 +5,11 @@ that imitates decoding part of a machine translation architecture.
 The script currently depends of groundhog. The profiling results
 and also pydotprint outputs are also stored in this repository.
 
+The following versions of theano and groundhog were used:
+
+* Theano: 239b6d8001e290f6c65b6f516a75e6bb1594fb02
+* GroundHog: 4d124e7696d4fb98b3f26d32916165b13bd610e3
+
 Results
 =======
 
