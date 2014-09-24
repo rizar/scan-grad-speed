@@ -1,8 +1,8 @@
 I try to investigate why and under which circumstances 
 computing the gradient of scan takes so much longer than
 doing scan itself. To do that I created a script demo.py,
-that imitates decoding part of a machine translation architecture.
-The script currently depends of groundhog. The profiling results
+that imitates decoding part of a machine translation architecture called
+"rnned". The script currently depends of groundhog. The profiling results
 and also pydotprint outputs are also stored in this repository.
 
 The following versions of theano and groundhog were used:
