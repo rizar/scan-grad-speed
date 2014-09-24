@@ -10,8 +10,6 @@ import theano.printing as TP
 import logging
 logger = logging.getLogger(__name__)
 
-from groundhog.layers import RecurrentLayer
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("name", help="Codename of this run")
@@ -23,35 +21,49 @@ def main():
     # Parameters from an actual machine tranlation run
     batch_size = 80
     seq_len = 50
-    n_words = 80 * 50
     dim = 1000
 
-    # Variables and their values
-    x = TT.matrix('x')
-    x_value = nr.normal(size=(n_words, dim)).astype("float32")
+    # Weight matrices
+    U = theano.shared(nr.normal(size=(dim, dim)).astype("float32"))
+    V = theano.shared(U.get_value())
+    W = theano.shared(U.get_value())
 
-    ri = TT.matrix('ri')
+    # Variables and their values
+    x = TT.tensor3('x')
+    x_value = nr.normal(size=(seq_len, batch_size, dim)).astype("float32")
+
+    ri = TT.tensor3('ri')
     ri_value = x_value
 
-    zi = TT.matrix('zi')
+    zi = TT.tensor3('zi')
     zi_value = x_value
 
-    # Build computations graphs
-    rec_layer = RecurrentLayer(
-        rng=nr.RandomState(1),
-        n_hids=dim,
-        gating=True,
-        reseting=True,
-        init_fn="sample_weights_classic",
-        name="rec")
-    hs = rec_layer(
-        state_below=x,
-        gater_below=zi,
-        reseter_below=ri,
-        nsteps=seq_len,
-        batch_size=batch_size).out
+    init = TT.alloc(numpy.float32(0), batch_size, dim)
+
+    # Build computations graph
+    def rnn_step(
+            # sequences
+            x, ri, zi,
+            # outputs_info
+            h):
+        pre_r = x + h.dot(U)
+        pre_z = x + h.dot(V)
+        r = TT.nnet.sigmoid(pre_r)
+        z = TT.nnet.sigmoid(pre_z)
+
+        after_r = r * h
+        pre_h = x + after_r.dot(W)
+        new_h = TT.tanh(pre_h)
+
+        res_h = z * new_h + (1 - z) * h
+        assert res_h.ndim == h.ndim
+        return res_h
+    hs, _ = theano.scan(rnn_step,
+            sequences=[x, ri, zi],
+            n_steps=seq_len,
+            outputs_info=init)
     cost = hs[-1].sum()
-    grad = TT.grad(cost, rec_layer.params)
+    grad = TT.grad(cost, [U, V, W])
 
     logger.info("Compile a function")
     func = theano.function(inputs=[x, ri, zi], outputs=grad)
