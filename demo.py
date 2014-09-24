@@ -28,7 +28,7 @@ def main():
 
     # Variables and their values
     x = TT.matrix('x')
-    x_value = nr.normal(size=(n_words, dim))
+    x_value = nr.normal(size=(n_words, dim)).astype("float32")
 
     ri = TT.matrix('ri')
     ri_value = x_value
@@ -37,7 +37,7 @@ def main():
     zi_value = x_value
 
     mask = TT.matrix('mask')
-    mask_value = numpy.ones((seq_len, batch_size))
+    mask_value = numpy.ones((seq_len, batch_size)).astype("float32")
 
     # Build computations graphs
     rec_layer = RecurrentLayer(
