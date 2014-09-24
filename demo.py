@@ -36,9 +36,6 @@ def main():
     zi = TT.matrix('zi')
     zi_value = x_value
 
-    mask = TT.matrix('mask')
-    mask_value = numpy.ones((seq_len, batch_size)).astype("float32")
-
     # Build computations graphs
     rec_layer = RecurrentLayer(
         rng=nr.RandomState(1),
@@ -49,7 +46,6 @@ def main():
         name="rec")
     hs = rec_layer(
         state_below=x,
-        mask=mask,
         gater_below=zi,
         reseter_below=ri,
         nsteps=seq_len,
@@ -58,12 +54,12 @@ def main():
     grad = TT.grad(cost, rec_layer.params)
 
     logger.info("Compile a function")
-    func = theano.function(inputs=[x, ri, zi, mask], outputs=grad)
+    func = theano.function(inputs=[x, ri, zi], outputs=grad)
     TP.pydotprint(func, outfile=args.name, scan_graphs=True)
 
     logger.info("Run the function")
     for i in range(5):
-        func(x_value, ri_value, zi_value, mask_value)
+        func(x_value, ri_value, zi_value)
 
     logger.info("Finished")
 
