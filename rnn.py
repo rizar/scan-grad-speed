@@ -82,10 +82,15 @@ def main():
     # TP.pydotprint(func, outfile=args.name, scan_graphs=True)
 
     logger.info("Run the function")
-    for i in range(1):
+    on_gpu = theano.config.device == 'gpu'
+    times=1
+    if on_gpu:
+        times=50
+    for i in range(times):
         g1 = func1(x_value)[0]
         g2 = func2(x_value)[0]
-        print g1.sum(), g2.sum()
+        if not on_gpu:
+            print g1.sum(), g2.sum()
 
     logger.info("Finished")
 
