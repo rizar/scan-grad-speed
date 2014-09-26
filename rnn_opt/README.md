@@ -29,3 +29,9 @@ Where does this difference come from? Let's look at profiling in `profile-rnnopt
     * backward pass overhead: 0.14s
     * big dot product to compute gradient for W: 0.16s
 
+Questions
+---------
+
+* Why so much overhead? Is it normal?
+* Is it possible somehow to make the trick I used an optimization in theano?
+
