@@ -97,8 +97,11 @@ def main():
         TT.shape_padleft(TT.ones_like(eh[0]))])
     eh.name = 'eh*'
     h = h.dimshuffle(2, 0, 1).reshape((dim, n_words))
+    h.name = 'h_shu'
     eh = eh.dimshuffle(2, 0, 1).reshape((dim, n_words)).T
+    eh.name = 'eh_shu'
     eW = h.dot(eh)
+    eW.name = 'eW'
     grad2 = [eW]
 
     logger.info("Compile a function")
