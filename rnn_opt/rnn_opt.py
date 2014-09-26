@@ -17,6 +17,7 @@ def watch(x):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('name')
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.DEBUG, stream=sys.stdout,
@@ -106,6 +107,7 @@ def main():
 
     logger.info("Compile a function")
     func1 = theano.function(inputs=[x], outputs=grad1, name="grad1")
+    TP.pydotprint(func1, outfile=args.name, scan_graphs=True)
     func2 = theano.function(inputs=[x], outputs=grad2, name="grad2")
 
     logger.info("Run the function")
