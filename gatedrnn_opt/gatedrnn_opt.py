@@ -177,14 +177,19 @@ def main():
     func3 = theano.function(inputs=[x, ri, zi], outputs=grad3, name="grad3")
 
     logger.info("Run the function")
-    for i in range(1):
+    on_gpu = theano.config.device == 'gpu'
+    times = 1
+    if on_gpu:
+        times = 50
+    for i in range(times):
         g1 = func1(x_value, ri_value, zi_value)
         g2 = func2(x_value, ri_value, zi_value)
         g3 = func3(x_value, ri_value, zi_value)
-        for g in [g1, g2, g3]:
-            print map(lambda x : x.sum(), g)
-        for v1, v2 in zip(g1, g2):
-            print numpy.sum(numpy.abs(v1 - v2))
+        if not on_gpu:
+            for g in [g1, g2, g3]:
+                print map(lambda x : x.sum(), g)
+            for v1, v2 in zip(g1, g2):
+                print numpy.sum(numpy.abs(v1 - v2))
 
     TP.pydotprint(func1, outfile=args.name + "1", scan_graphs=True)
     TP.pydotprint(func2, outfile=args.name + "2", scan_graphs=True)
