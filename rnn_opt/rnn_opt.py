@@ -42,14 +42,14 @@ def main():
     # Backward pass
     def grad_step(
             # sequences
-            h, pre_h,
+            h, mult,
             # outputs_info
             e_h_next):
         h.name = 'h'
-        pre_h.name = 'pre_h'
+        mult.name = 'mul'
         e_h_next.name = 'e_h_next'
 
-        e_pre_h = e_h_next / TT.cosh(pre_h) ** 2
+        e_pre_h = e_h_next * mult
         e_pre_h.name = 'e_pre_h'
         e_h = e_pre_h.dot(WT)
         e_h.name = 'e_h'
@@ -78,16 +78,14 @@ def main():
     cost = h[-1].sum()
     grad1 = TT.grad(cost, [W])
 
+    mult = 1 - h ** 2
+    mult.name = 'mult'
     h = TT.concatenate([
         TT.shape_padleft(TT.zeros_like(h[0])),
         h[:-1]])
     h.name = 'h*'
-    pre_h = TT.concatenate([
-        TT.shape_padleft(TT.zeros_like(pre_h[0])),
-        pre_h[:-1]])
-    pre_h.name = 'pre_h*'
     eh, _ = theano.scan(grad_step,
-            sequences=[h, pre_h],
+            sequences=[h, mult],
             n_steps=seq_len,
             outputs_info=[TT.ones_like(x[0])],
             go_backwards=True,
