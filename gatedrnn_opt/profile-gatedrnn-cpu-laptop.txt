@@ -1,0 +1,568 @@
+/home/rizar/Dist/theano/theano/scan_module/scan_perform_ext.py:117: RuntimeWarning: numpy.ndarray size changed, may indicate binary incompatibility
+  from scan_perform.scan_perform import *
+Function profiling
+==================
+  Message: grad1
+  Time in 1 calls to Function.__call__: 3.606847e+00s
+  Time in Function.fn.__call__: 3.606800e+00s (99.999%)
+  Time in thunks: 3.606677e+00s (99.995%)
+  Total compile time: 3.046156e+00s
+    Number of Apply nodes: 78
+    Theano Optimizer time: 2.567290e+00s
+       Theano validate time: 2.574563e-02s
+    Theano Linker time (includes C, CUDA code generation/compiling): 4.680221e-01s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  99.6%    99.6%       3.593s       1.80e+00s     Py       2       2   theano.scan_module.scan_op.Scan
+   0.3%    99.9%       0.011s       2.24e-03s     C        5       5   theano.tensor.basic.Alloc
+   0.1%   100.0%       0.003s       1.39e-03s     C        2       2   theano.tensor.subtensor.IncSubtensor
+   0.0%   100.0%       0.000s       1.37e-06s     C       30      30   theano.tensor.elemwise.Elemwise
+   0.0%   100.0%       0.000s       2.25e-06s     C       11      11   theano.tensor.subtensor.Subtensor
+   0.0%   100.0%       0.000s       1.85e-06s     C        9       9   theano.compile.ops.Shape_i
+   0.0%   100.0%       0.000s       9.14e-07s     C       12      12   theano.tensor.basic.ScalarFromTensor
+   0.0%   100.0%       0.000s       2.03e-06s     C        4       4   theano.tensor.elemwise.DimShuffle
+   0.0%   100.0%       0.000s       9.54e-07s     C        3       3   theano.compile.ops.Rebroadcast
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  70.7%    70.7%       2.550s       2.55e+00s     Py       1        1   forall_inplace,cpu,grad_of_fpass1}
+  28.9%    99.6%       1.042s       1.04e+00s     Py       1        1   for{cpu,fpass1}
+   0.3%    99.9%       0.011s       2.24e-03s     C        5        5   Alloc
+   0.1%   100.0%       0.003s       2.71e-03s     C        1        1   IncSubtensor{InplaceInc;int64::}
+   0.0%   100.0%       0.000s       7.51e-05s     C        1        1   IncSubtensor{InplaceInc;int64}
+   0.0%   100.0%       0.000s       2.15e-06s     C        6        6   Shape_i{0}
+   0.0%   100.0%       0.000s       9.14e-07s     C       12       12   ScalarFromTensor
+   0.0%   100.0%       0.000s       3.02e-06s     C        3        3   Elemwise{Composite{[Switch(i0, i1, minimum(i2, i3))]}}[(0, 2)]
+   0.0%   100.0%       0.000s       1.97e-06s     C        4        4   Subtensor{int64:int64:int64}
+   0.0%   100.0%       0.000s       6.91e-06s     C        1        1   Subtensor{::int64}
+   0.0%   100.0%       0.000s       2.30e-06s     C        3        3   InplaceDimShuffle{1,0}
+   0.0%   100.0%       0.000s       1.07e-06s     C        6        6   Elemwise{le,no_inplace}
+   0.0%   100.0%       0.000s       1.67e-06s     C        3        3   Subtensor{int64}
+   0.0%   100.0%       0.000s       1.67e-06s     C        3        3   Subtensor{int64:int64:int8}
+   0.0%   100.0%       0.000s       1.67e-06s     C        3        3   Elemwise{Composite{[Switch(i0, i1, minimum(i2, i3))]}}[(0, 3)]
+   0.0%   100.0%       0.000s       1.43e-06s     C        3        3   Elemwise{Composite{[Switch(LT(*2 -> Composite{[Switch(LT(i0, i1), i1, i0)]}(Composite{[Switch(LT(i0, i1), i2, i0)]}(Composite{[sub(i0, Switch(LT(i1, i2), i2, i1))]}(i0, Composite{[add(i0, int_div(i1, i0))]}(i1, *1 -> add(i2, i0)), i3), i3, *1), i3), i4), *2, i4)]}}
+   0.0%   100.0%       0.000s       1.35e-06s     C        3        3   Elemwise{Composite{[Switch(i0, i1, maximum(minimum(add(i2, i3), i4), i5))]}}[(0, 3)]
+   0.0%   100.0%       0.000s       1.27e-06s     C        3        3   Shape_i{1}
+   0.0%   100.0%       0.000s       1.27e-06s     C        3        3   Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}
+   0.0%   100.0%       0.000s       9.54e-07s     C        3        3   Rebroadcast{0}
+   ... (remaining 4 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  70.7%    70.7%       2.550s       2.55e+00s      1    74   forall_inplace,cpu,grad_of_fpass1}(TensorConstant{50}, InplaceDimShuffle{0,2,1}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{::int64}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, V, U, W, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0)
+  28.9%    99.6%       1.042s       1.04e+00s      1    71   for{cpu,fpass1}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(51, 80, 1..00) of 0.0}, V, U, W)
+   0.1%    99.7%       0.005s       4.96e-03s      1     9   Alloc(TensorConstant{(1, 1, 1) of 0.0}, TensorConstant{50}, TensorConstant{80}, TensorConstant{1000})
+   0.1%    99.9%       0.005s       4.95e-03s      1    10   Alloc(TensorConstant{(1, 1, 1) of 0.0}, TensorConstant{51}, TensorConstant{80}, TensorConstant{1000})
+   0.1%   100.0%       0.003s       2.71e-03s      1    24   IncSubtensor{InplaceInc;int64::}(Alloc.0, IncSubtensor{InplaceInc;int64}.0, Constant{1})
+   0.0%   100.0%       0.000s       4.40e-04s      1    15   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       4.36e-04s      1    16   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       4.22e-04s      1    14   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       7.51e-05s      1    17   IncSubtensor{InplaceInc;int64}(Alloc.0, TensorConstant{(80, 1000) of 1.0}, Constant{-1})
+   0.0%   100.0%       0.000s       7.15e-06s      1    49   Elemwise{Composite{[Switch(i0, i1, minimum(i2, i3))]}}[(0, 2)](Elemwise{le,no_inplace}.0, TensorConstant{0}, Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}.0, Shape_i{0}.0)
+   0.0%   100.0%       0.000s       6.91e-06s      1    31   Subtensor{::int64}(IncSubtensor{InplaceInc;int64::}.0, Constant{-1})
+   0.0%   100.0%       0.000s       4.05e-06s      1     6   InplaceDimShuffle{1,0}(V)
+   0.0%   100.0%       0.000s       4.05e-06s      1    57   Elemwise{Composite{[Switch(i0, i1, minimum(i2, i3))]}}[(0, 3)](Elemwise{le,no_inplace}.0, TensorConstant{0}, TensorConstant{0}, Shape_i{0}.0)
+   0.0%   100.0%       0.000s       4.05e-06s      1    72   Subtensor{int64:int64:int64}(for{cpu,fpass1}.0, Constant{49}, Constant{-52}, Constant{-1})
+   0.0%   100.0%       0.000s       4.05e-06s      1    70   Subtensor{int64:int64:int8}(x, ScalarFromTensor.0, ScalarFromTensor.0, Constant{1})
+   0.0%   100.0%       0.000s       3.10e-06s      1    77   Subtensor{int64}(forall_inplace,cpu,grad_of_fpass1}.2, Constant{0})
+   0.0%   100.0%       0.000s       3.10e-06s      1     8   Shape_i{0}(V)
+   0.0%   100.0%       0.000s       3.10e-06s      1     5   Shape_i{0}(U)
+   0.0%   100.0%       0.000s       2.86e-06s      1     1   Shape_i{0}(W)
+   0.0%   100.0%       0.000s       2.15e-06s      1    34   Elemwise{Composite{[Switch(LT(*2 -> Composite{[Switch(LT(i0, i1), i1, i0)]}(Composite{[Switch(LT(i0, i1), i2, i0)]}(Composite{[sub(i0, Switch(LT(i1, i2), i2, i1))]}(i0, Composite{[add(i0, int_div(i1, i0))]}(i1, *1 -> add(i2, i0)), i3), i3, *1), i3), i4), *2, i4)]}}(Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}.0, TensorConstant{1}, TensorConstant{-1}, TensorConstant{0}, Elemwise{Composite{[Switch(LT(i0, i1), i1, i0)]}}.0)
+   ... (remaining 58 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( fpass1 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 1.042279e+00s
+
+  Total time spent in calling the VM 1.036476e+00s (99.443%)
+  Total overhead (computing slices..) 5.802870e-03s (0.557%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  68.0%    68.0%       0.703s       4.69e-03s     C      150       3   theano.tensor.blas.Gemm
+  32.0%   100.0%       0.332s       3.32e-03s     C      100       2   theano.tensor.elemwise.Elemwise
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  68.0%    68.0%       0.703s       4.69e-03s     C      150        3   Gemm{no_inplace}
+  20.2%    88.2%       0.209s       4.18e-03s     C       50        1   Elemwise{Composite{[add(mul(*1 -> scalar_sigmoid(i0), tanh(i1)), mul(sub(i2, *1), i3))]}}[(0, 0)]
+  11.8%   100.0%       0.123s       2.45e-03s     C       50        1   Elemwise{Composite{[mul(scalar_sigmoid(i0), i1)]}}[(0, 0)]
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  22.8%    22.8%       0.236s       4.73e-03s     50     1   Gemm{no_inplace}(zi[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, V_copy, TensorConstant{1.0})
+  22.6%    45.4%       0.234s       4.68e-03s     50     0   Gemm{no_inplace}(ri[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, U_copy, TensorConstant{1.0})
+  22.5%    68.0%       0.233s       4.66e-03s     50     3   Gemm{no_inplace}(x[t], TensorConstant{1.0}, Elemwise{Composite{[mul(scalar_sigmoid(i0), i1)]}}[(0, 0)].0, W_copy, TensorConstant{1.0})
+  20.2%    88.2%       0.209s       4.18e-03s     50     4   Elemwise{Composite{[add(mul(*1 -> scalar_sigmoid(i0), tanh(i1)), mul(sub(i2, *1), i3))]}}[(0, 0)](Gemm{no_inplace}.0, Gemm{no_inplace}.0, TensorConstant{(1, 1) of 1.0}, <TensorType(float32, matrix)>)
+  11.8%   100.0%       0.123s       2.45e-03s     50     2   Elemwise{Composite{[mul(scalar_sigmoid(i0), i1)]}}[(0, 0)](Gemm{no_inplace}.0, <TensorType(float32, matrix)>)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( grad_of_fpass1 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 2.550089e+00s
+
+  Total time spent in calling the VM 2.461951e+00s (96.544%)
+  Total overhead (computing slices..) 8.813763e-02s (3.456%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  67.4%    67.4%       1.657s       4.73e-03s     C      350       7   theano.tensor.blas.Gemm
+  19.0%    86.4%       0.466s       4.66e-03s     C      100       2   theano.tensor.blas.Dot22
+  13.6%   100.0%       0.334s       7.42e-04s     C      450       9   theano.tensor.elemwise.Elemwise
+   0.0%   100.0%       0.000s       4.75e-06s     C       50       1   theano.tensor.elemwise.DimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  57.9%    57.9%       1.423s       4.74e-03s     C      300        6   Gemm{no_inplace}
+  19.0%    76.9%       0.466s       4.66e-03s     C      100        2   Dot22
+   9.8%    86.7%       0.242s       2.42e-03s     C      100        2   Elemwise{ScalarSigmoid}[(0, 0)]
+   9.5%    96.2%       0.234s       4.68e-03s     C       50        1   Gemm{inplace}
+   2.6%    98.9%       0.065s       1.29e-03s     C       50        1   Elemwise{Tanh}[(0, 0)]
+   0.3%    99.1%       0.007s       1.33e-04s     C       50        1   Elemwise{Composite{[add(mul(i0, i1), mul(i2, i3), i4, i5)]}}[(0, 0)]
+   0.3%    99.4%       0.006s       1.29e-04s     C       50        1   Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}
+   0.2%    99.6%       0.005s       9.41e-05s     C       50        1   Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)]
+   0.2%    99.8%       0.004s       8.50e-05s     C       50        1   Elemwise{Composite{[mul(sub(i0, i1), i1, i2, i3)]}}
+   0.1%    99.9%       0.003s       6.52e-05s     C       50        1   Elemwise{mul,no_inplace}
+   0.1%   100.0%       0.002s       4.58e-05s     C       50        1   Elemwise{sub}
+   0.0%   100.0%       0.000s       4.75e-06s     C       50        1   InplaceDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+   9.8%     9.8%       0.240s       4.81e-03s     50     0   Gemm{no_inplace}(zi[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, V_copy, TensorConstant{1.0})
+   9.7%    19.5%       0.239s       4.77e-03s     50    16   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, <TensorType(float32, matrix)>, Elemwise{Composite{[mul(sub(i0, i1), i1, i2, i3)]}}.0, TensorConstant{1.0})
+   9.7%    29.2%       0.238s       4.77e-03s     50    11   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, <TensorType(float32, matrix)>, Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}.0, TensorConstant{1.0})
+   9.6%    38.8%       0.237s       4.74e-03s     50    13   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, InplaceDimShuffle{1,0}.0, Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)].0, TensorConstant{1.0})
+   9.6%    48.4%       0.236s       4.72e-03s     50     1   Gemm{no_inplace}(ri[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, U_copy, TensorConstant{1.0})
+   9.5%    58.0%       0.234s       4.68e-03s     50    17   Gemm{inplace}(Dot22.0, TensorConstant{1.0}, Elemwise{Composite{[mul(sub(i0, i1), i1, i2, i3)]}}.0, U_copy.T_replace, TensorConstant{1.0})
+   9.5%    67.5%       0.233s       4.66e-03s     50    12   Dot22(Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}.0, V_copy.T_replace)
+   9.5%    76.9%       0.233s       4.66e-03s     50    14   Dot22(Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)].0, W_copy.T_replace)
+   9.5%    86.4%       0.232s       4.65e-03s     50     6   Gemm{no_inplace}(x[t], TensorConstant{1.0}, Elemwise{mul,no_inplace}.0, W_copy, TensorConstant{1.0})
+   5.0%    91.4%       0.124s       2.47e-03s     50     2   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+   4.8%    96.2%       0.118s       2.36e-03s     50     3   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+   2.6%    98.9%       0.065s       1.29e-03s     50     8   Elemwise{Tanh}[(0, 0)](Gemm{no_inplace}.0)
+   0.3%    99.1%       0.007s       1.33e-04s     50    18   Elemwise{Composite{[add(mul(i0, i1), mul(i2, i3), i4, i5)]}}[(0, 0)](Dot22.0, Elemwise{ScalarSigmoid}[(0, 0)].0, <TensorType(float32, matrix)>, Elemwise{sub}.0, <TensorType(float32, matrix)>, Gemm{inplace}.0)
+   0.3%    99.4%       0.006s       1.29e-04s     50     9   Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}(Elemwise{sub}.0, <TensorType(float32, matrix)>, Elemwise{Tanh}[(0, 0)].0, <TensorType(float32, matrix)>, Elemwise{ScalarSigmoid}[(0, 0)].0)
+   0.2%    99.6%       0.005s       9.41e-05s     50    10   Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)](TensorConstant{(1, 1) of 1.0}, Elemwise{Tanh}[(0, 0)].0, <TensorType(float32, matrix)>, Elemwise{ScalarSigmoid}[(0, 0)].0)
+   0.2%    99.8%       0.004s       8.50e-05s     50    15   Elemwise{Composite{[mul(sub(i0, i1), i1, i2, i3)]}}(TensorConstant{(1, 1) of 1.0}, Elemwise{ScalarSigmoid}[(0, 0)].0, Dot22.0, <TensorType(float32, matrix)>)
+   0.1%    99.9%       0.003s       6.52e-05s     50     5   Elemwise{mul,no_inplace}(Elemwise{ScalarSigmoid}[(0, 0)].0, <TensorType(float32, matrix)>)
+   0.1%   100.0%       0.002s       4.58e-05s     50     4   Elemwise{sub}(TensorConstant{(1, 1) of 1.0}, Elemwise{ScalarSigmoid}[(0, 0)].0)
+   0.0%   100.0%       0.000s       4.75e-06s     50     7   InplaceDimShuffle{1,0}(Elemwise{mul,no_inplace}.0)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Function profiling
+==================
+  Message: grad2
+  Time in 1 calls to Function.__call__: 2.524445e+00s
+  Time in Function.fn.__call__: 2.524384e+00s (99.998%)
+  Time in thunks: 2.524219e+00s (99.991%)
+  Total compile time: 2.716833e+00s
+    Number of Apply nodes: 62
+    Theano Optimizer time: 2.556129e+00s
+       Theano validate time: 1.381922e-02s
+    Theano Linker time (includes C, CUDA code generation/compiling): 1.489031e-01s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  71.4%    71.4%       1.803s       9.02e-01s     Py       2       2   theano.scan_module.scan_op.Scan
+  22.5%    94.0%       0.569s       1.90e-01s     C        3       3   theano.tensor.blas.Dot22
+   4.4%    98.4%       0.111s       2.22e-02s     C        5       5   theano.tensor.basic.Reshape
+   1.5%    99.9%       0.039s       2.17e-03s     C       18      18   theano.tensor.elemwise.Elemwise
+   0.1%   100.0%       0.002s       2.07e-03s     C        1       1   theano.tensor.basic.Join
+   0.0%   100.0%       0.000s       4.44e-06s     C       11      11   theano.tensor.subtensor.Subtensor
+   0.0%   100.0%       0.000s       4.79e-05s     C        1       1   theano.tensor.subtensor.IncSubtensor
+   0.0%   100.0%       0.000s       4.79e-05s     C        1       1   theano.tensor.basic.Alloc
+   0.0%   100.0%       0.000s       2.69e-06s     C       11      11   theano.tensor.elemwise.DimShuffle
+   0.0%   100.0%       0.000s       7.15e-07s     C        6       6   theano.tensor.basic.ScalarFromTensor
+   0.0%   100.0%       0.000s       9.54e-07s     C        3       3   theano.compile.ops.Shape_i
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  41.4%    41.4%       1.046s       1.05e+00s     Py       1        1   for{cpu,fpass2}
+  30.0%    71.4%       0.757s       7.57e-01s     Py       1        1   forall_inplace,cpu,bpass2}
+  22.5%    94.0%       0.569s       1.90e-01s     C        3        3   Dot22
+   4.4%    98.4%       0.111s       2.22e-02s     C        5        5   Reshape{2}
+   0.6%    99.0%       0.015s       7.42e-03s     C        2        2   Elemwise{sub,no_inplace}
+   0.3%    99.3%       0.008s       8.41e-03s     C        1        1   Elemwise{mul,no_inplace}
+   0.3%    99.6%       0.008s       8.19e-03s     C        1        1   Elemwise{Composite{[mul(i0, sub(i1, i0))]}}
+   0.2%    99.8%       0.005s       4.63e-03s     C        1        1   Elemwise{Mul}[(0, 0)]
+   0.1%    99.9%       0.003s       2.95e-03s     C        1        1   Elemwise{Composite{[sub(i0, sqr(i1))]}}[(0, 1)]
+   0.1%   100.0%       0.002s       2.07e-03s     C        1        1   Join
+   0.0%   100.0%       0.000s       4.79e-05s     C        1        1   IncSubtensor{InplaceSet;:int64:}
+   0.0%   100.0%       0.000s       4.79e-05s     C        1        1   Alloc
+   0.0%   100.0%       0.000s       5.30e-06s     C        4        4   Subtensor{int64:int64:int64}
+   0.0%   100.0%       0.000s       5.64e-06s     C        3        3   Subtensor{::int64}
+   0.0%   100.0%       0.000s       2.54e-06s     C        6        6   InplaceDimShuffle{1,0}
+   0.0%   100.0%       0.000s       2.86e-06s     C        5        5   InplaceDimShuffle{2,0,1}
+   0.0%   100.0%       0.000s       2.68e-06s     C        4        4   Subtensor{int64:int64:int8}
+   0.0%   100.0%       0.000s       7.15e-07s     C        6        6   ScalarFromTensor
+   0.0%   100.0%       0.000s       1.03e-06s     C        3        3   Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}
+   0.0%   100.0%       0.000s       9.54e-07s     C        3        3   Shape_i{0}
+   ... (remaining 3 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  41.4%    41.4%       1.046s       1.05e+00s      1    29   for{cpu,fpass2}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(50, 80, 1..00) of 0.0}, TensorConstant{50}, TensorConstant{50}, TensorConstant{50}, V, U, W)
+  30.0%    71.4%       0.757s       7.57e-01s      1    45   forall_inplace,cpu,bpass2}(TensorConstant{50}, Elemwise{sub,no_inplace}.0, Elemwise{sub,no_inplace}.0, Elemwise{Composite{[sub(i0, sqr(i1))]}}[(0, 1)].0, Elemwise{mul,no_inplace}.0, Elemwise{Composite{[mul(i0, sub(i1, i0))]}}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, IncSubtensor{InplaceSet;:int64:}.0, TensorConstant{50}, TensorConstant{50}, TensorConstant{50}, InplaceDimShuffle{1,0}.0, Inplac
+   7.9%    79.4%       0.200s       2.00e-01s      1    59   Dot22(Reshape{2}.0, InplaceDimShuffle{1,0}.0)
+   7.3%    86.7%       0.185s       1.85e-01s      1    61   Dot22(Elemwise{Mul}[(0, 0)].0, InplaceDimShuffle{1,0}.0)
+   7.3%    94.0%       0.184s       1.84e-01s      1    58   Dot22(Reshape{2}.0, InplaceDimShuffle{1,0}.0)
+   1.6%    95.6%       0.041s       4.12e-02s      1    53   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   1.4%    97.0%       0.035s       3.50e-02s      1    52   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   1.4%    98.4%       0.035s       3.47e-02s      1    54   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   0.3%    98.7%       0.008s       8.41e-03s      1    39   Elemwise{mul,no_inplace}(Subtensor{int64:int64:int64}.0, Elemwise{sub,no_inplace}.0)
+   0.3%    99.0%       0.008s       8.35e-03s      1    42   Elemwise{sub,no_inplace}(Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0)
+   0.3%    99.4%       0.008s       8.19e-03s      1    36   Elemwise{Composite{[mul(i0, sub(i1, i0))]}}(Subtensor{int64:int64:int64}.0, TensorConstant{(1, 1, 1) of 1.0})
+   0.3%    99.6%       0.006s       6.48e-03s      1    35   Elemwise{sub,no_inplace}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{int64:int64:int64}.0)
+   0.2%    99.8%       0.005s       4.63e-03s      1    60   Elemwise{Mul}[(0, 0)](Reshape{2}.0, Reshape{2}.0)
+   0.1%    99.9%       0.003s       2.95e-03s      1    44   Elemwise{Composite{[sub(i0, sqr(i1))]}}[(0, 1)](TensorConstant{(1, 1, 1) of 1.0}, Subtensor{int64:int64:int64}.0)
+   0.1%   100.0%       0.002s       2.07e-03s      1    38   Join(TensorConstant{0}, TensorConstant{(1, 80, 1000) of 0.0}, Subtensor{int64:int64:int8}.0)
+   0.0%   100.0%       0.000s       4.79e-05s      1     7   IncSubtensor{InplaceSet;:int64:}(Alloc.0, TensorConstant{(1, 80, 1000) of 1.0}, Constant{1})
+   0.0%   100.0%       0.000s       4.79e-05s      1     3   Alloc(TensorConstant{0.0}, TensorConstant{1}, TensorConstant{80}, TensorConstant{1000})
+   0.0%   100.0%       0.000s       8.11e-06s      1    30   Subtensor{int64:int64:int64}(for{cpu,fpass2}.2, Constant{49}, Constant{-51}, Constant{-1})
+   0.0%   100.0%       0.000s       8.11e-06s      1    31   Subtensor{int64:int64:int64}(for{cpu,fpass2}.1, Constant{49}, Constant{-51}, Constant{-1})
+   0.0%   100.0%       0.000s       7.15e-06s      1    46   Subtensor{::int64}(forall_inplace,cpu,bpass2}.3, Constant{-1})
+   ... (remaining 42 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( fpass2 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 1.046124e+00s
+
+  Total time spent in calling the VM 1.012834e+00s (96.818%)
+  Total overhead (computing slices..) 3.328967e-02s (3.182%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  69.3%    69.3%       0.701s       4.68e-03s     C      150       3   theano.tensor.blas.Gemm
+  30.7%   100.0%       0.310s       1.24e-03s     C      250       5   theano.tensor.elemwise.Elemwise
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  69.3%    69.3%       0.701s       4.68e-03s     C      150        3   Gemm{no_inplace}
+  23.7%    93.1%       0.240s       2.40e-03s     C      100        2   Elemwise{ScalarSigmoid}[(0, 0)]
+   6.3%    99.3%       0.063s       1.27e-03s     C       50        1   Elemwise{Tanh}[(0, 0)]
+   0.4%    99.7%       0.004s       7.36e-05s     C       50        1   Elemwise{Composite{[add(mul(i0, i1), mul(sub(i2, i0), i3))]}}
+   0.3%   100.0%       0.003s       6.07e-05s     C       50        1   Elemwise{mul,no_inplace}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  23.2%    23.2%       0.235s       4.70e-03s     50     0   Gemm{no_inplace}(ri[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, U_copy, TensorConstant{1.0})
+  23.2%    46.4%       0.234s       4.69e-03s     50     1   Gemm{no_inplace}(zi[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, V_copy, TensorConstant{1.0})
+  22.9%    69.3%       0.232s       4.64e-03s     50     5   Gemm{no_inplace}(x[t], TensorConstant{1.0}, Elemwise{mul,no_inplace}.0, W_copy, TensorConstant{1.0})
+  11.9%    81.2%       0.120s       2.40e-03s     50     2   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+  11.9%    93.1%       0.120s       2.40e-03s     50     3   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+   6.3%    99.3%       0.063s       1.27e-03s     50     6   Elemwise{Tanh}[(0, 0)](Gemm{no_inplace}.0)
+   0.4%    99.7%       0.004s       7.36e-05s     50     7   Elemwise{Composite{[add(mul(i0, i1), mul(sub(i2, i0), i3))]}}(Elemwise{ScalarSigmoid}[(0, 0)].0, Elemwise{Tanh}[(0, 0)].0, TensorConstant{(1, 1) of 1.0}, <TensorType(float32, matrix)>)
+   0.3%   100.0%       0.003s       6.07e-05s     50     4   Elemwise{mul,no_inplace}(Elemwise{ScalarSigmoid}[(0, 0)].0, <TensorType(float32, matrix)>)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( bpass2 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 7.567022e-01s
+
+  Total time spent in calling the VM 7.360904e-01s (97.276%)
+  Total overhead (computing slices..) 2.061176e-02s (2.724%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  64.6%    64.6%       0.474s       4.74e-03s     C      100       2   theano.tensor.blas.Gemm
+  32.2%    96.8%       0.236s       4.73e-03s     C       50       1   theano.tensor.blas.Dot22
+   3.2%   100.0%       0.024s       7.85e-05s     C      300       6   theano.tensor.elemwise.Elemwise
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  64.6%    64.6%       0.474s       4.74e-03s     C      100        2   Gemm{inplace}
+  32.2%    96.8%       0.236s       4.73e-03s     C       50        1   Dot22
+   2.1%    98.9%       0.015s       7.71e-05s     C      200        4   Elemwise{mul,no_inplace}
+   0.7%    99.5%       0.005s       9.65e-05s     C       50        1   Elemwise{Mul}[(0, 2)]
+   0.5%   100.0%       0.003s       6.64e-05s     C       50        1   Elemwise{Add}[(0, 0)]
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  32.4%    32.4%       0.238s       4.76e-03s     50     7   Gemm{inplace}(Elemwise{mul,no_inplace}.0, TensorConstant{1.0}, Elemwise{Mul}[(0, 2)].0, U.T_replace, TensorConstant{1.0})
+  32.2%    64.6%       0.236s       4.73e-03s     50     6   Gemm{inplace}(Elemwise{mul,no_inplace}.0, TensorConstant{1.0}, Elemwise{mul,no_inplace}.0, V.T_replace, TensorConstant{1.0})
+  32.2%    96.8%       0.236s       4.73e-03s     50     3   Dot22(Elemwise{mul,no_inplace}.0, W.T_replace)
+   0.7%    97.5%       0.005s       1.00e-04s     50     1   Elemwise{mul,no_inplace}(<TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>)
+   0.7%    98.1%       0.005s       9.65e-05s     50     5   Elemwise{Mul}[(0, 2)](<TensorType(float32, matrix)>, <TensorType(float32, matrix)>, Dot22.0)
+   0.6%    98.7%       0.004s       8.35e-05s     50     0   Elemwise{mul,no_inplace}(<TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>)
+   0.5%    99.2%       0.003s       6.64e-05s     50     8   Elemwise{Add}[(0, 0)](Gemm{inplace}.0, Gemm{inplace}.0)
+   0.4%    99.6%       0.003s       6.43e-05s     50     2   Elemwise{mul,no_inplace}(<TensorType(float32, matrix)>, <TensorType(float32, matrix)>)
+   0.4%   100.0%       0.003s       6.05e-05s     50     4   Elemwise{mul,no_inplace}(<TensorType(float32, matrix)>, Dot22.0)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Function profiling
+==================
+  Message: grad3
+  Time in 1 calls to Function.__call__: 2.894031e+00s
+  Time in Function.fn.__call__: 2.893982e+00s (99.998%)
+  Time in thunks: 2.893869e+00s (99.994%)
+  Total compile time: 2.440831e+00s
+    Number of Apply nodes: 66
+    Theano Optimizer time: 2.101739e+00s
+       Theano validate time: 1.949120e-02s
+    Theano Linker time (includes C, CUDA code generation/compiling): 3.269839e-01s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  98.8%    98.8%       2.858s       1.43e+00s     Py       2       2   theano.scan_module.scan_op.Scan
+   0.7%    99.5%       0.022s       1.03e-03s     C       21      21   theano.tensor.elemwise.Elemwise
+   0.4%    99.9%       0.011s       2.20e-03s     C        5       5   theano.tensor.basic.Alloc
+   0.1%   100.0%       0.003s       1.36e-03s     C        2       2   theano.tensor.subtensor.IncSubtensor
+   0.0%   100.0%       0.000s       3.23e-06s     C       11      11   theano.tensor.subtensor.Subtensor
+   0.0%   100.0%       0.000s       3.15e-06s     C        5       5   theano.tensor.elemwise.DimShuffle
+   0.0%   100.0%       0.000s       1.56e-06s     C        9       9   theano.compile.ops.Shape_i
+   0.0%   100.0%       0.000s       7.75e-07s     C        8       8   theano.tensor.basic.ScalarFromTensor
+   0.0%   100.0%       0.000s       6.36e-07s     C        3       3   theano.compile.ops.Rebroadcast
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  63.1%    63.1%       1.825s       1.83e+00s     Py       1        1   forall_inplace,cpu,grad_of_fpass3}
+  35.7%    98.8%       1.033s       1.03e+00s     Py       1        1   for{cpu,fpass3}
+   0.5%    99.2%       0.013s       4.41e-03s     C        3        3   Elemwise{sub,no_inplace}
+   0.4%    99.6%       0.011s       2.20e-03s     C        5        5   Alloc
+   0.3%    99.9%       0.008s       8.34e-03s     C        1        1   Elemwise{mul,no_inplace}
+   0.1%   100.0%       0.003s       2.66e-03s     C        1        1   IncSubtensor{InplaceInc;int64::}
+   0.0%   100.0%       0.000s       6.20e-05s     C        1        1   IncSubtensor{InplaceInc;int64}
+   0.0%   100.0%       0.000s       6.44e-06s     C        2        2   Subtensor{int64:int64:int64}
+   0.0%   100.0%       0.000s       1.87e-06s     C        6        6   Shape_i{0}
+   0.0%   100.0%       0.000s       3.58e-06s     C        3        3   Subtensor{::int64}
+   0.0%   100.0%       0.000s       2.62e-06s     C        3        3   InplaceDimShuffle{1,0}
+   0.0%   100.0%       0.000s       3.93e-06s     C        2        2   InplaceDimShuffle{0,2,1}
+   0.0%   100.0%       0.000s       2.30e-06s     C        3        3   Subtensor{int64:int64:int8}
+   0.0%   100.0%       0.000s       7.75e-07s     C        8        8   ScalarFromTensor
+   0.0%   100.0%       0.000s       1.67e-06s     C        3        3   Subtensor{int64}
+   0.0%   100.0%       0.000s       3.10e-06s     C        1        1   Elemwise{Composite{[Switch(LT(*1 -> Composite{[Switch(LT(i0, i1), i1, i0)]}(Composite{[Switch(LT(i0, i1), i2, i0)]}(Composite{[sub(i0, Switch(LT(i1, i2), i2, i1))]}(i0, Composite{[add(i0, int_div(i1, i0))]}(i1, *2 -> add(i2, i0)), i3), i3, *2), i3), i4), *1, i4)]}}
+   0.0%   100.0%       0.000s       1.03e-06s     C        3        3   Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}
+   0.0%   100.0%       0.000s       3.10e-06s     C        1        1   Elemwise{Composite{[Switch(LT(i0, i1), i1, i0)]}}
+   0.0%   100.0%       0.000s       7.75e-07s     C        4        4   Elemwise{le,no_inplace}
+   0.0%   100.0%       0.000s       9.54e-07s     C        3        3   Shape_i{1}
+   ... (remaining 5 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  63.1%    63.1%       1.825s       1.83e+00s      1    62   forall_inplace,cpu,grad_of_fpass3}(TensorConstant{50}, Elemwise{sub}.0, InplaceDimShuffle{0,2,1}.0, Elemwise{mul,no_inplace}.0, Elemwise{sub}.0, InplaceDimShuffle{0,2,1}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{::int64}.0, Subtensor{::int64}.0, Subtensor{::int64}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, W, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0)
+  35.7%    98.8%       1.033s       1.03e+00s      1    53   for{cpu,fpass3}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(51, 80, 1..00) of 0.0}, TensorConstant{50}, TensorConstant{50}, V, U, W)
+   0.3%    99.1%       0.008s       8.34e-03s      1    59   Elemwise{mul,no_inplace}(Subtensor{::int64}.0, Subtensor{int64:int64:int64}.0)
+   0.2%    99.3%       0.007s       6.63e-03s      1    57   Elemwise{sub}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{::int64}.0)
+   0.2%    99.5%       0.007s       6.60e-03s      1    58   Elemwise{sub}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{::int64}.0)
+   0.2%    99.7%       0.005s       4.89e-03s      1    10   Alloc(TensorConstant{(1, 1, 1) of 0.0}, TensorConstant{51}, TensorConstant{80}, TensorConstant{1000})
+   0.2%    99.9%       0.005s       4.81e-03s      1     9   Alloc(TensorConstant{(1, 1, 1) of 0.0}, TensorConstant{50}, TensorConstant{80}, TensorConstant{1000})
+   0.1%    99.9%       0.003s       2.66e-03s      1    24   IncSubtensor{InplaceInc;int64::}(Alloc.0, IncSubtensor{InplaceInc;int64}.0, Constant{1})
+   0.0%   100.0%       0.000s       4.61e-04s      1    14   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       4.29e-04s      1    16   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       4.20e-04s      1    15   Alloc(TensorConstant{0.0}, TensorConstant{1}, Shape_i{0}.0, Shape_i{1}.0)
+   0.0%   100.0%       0.000s       6.20e-05s      1    17   IncSubtensor{InplaceInc;int64}(Alloc.0, TensorConstant{(80, 1000) of 1.0}, Constant{-1})
+   0.0%   100.0%       0.000s       9.06e-06s      1    56   Subtensor{int64:int64:int64}(for{cpu,fpass3}.0, Constant{49}, Constant{-52}, Constant{-1})
+   0.0%   100.0%       0.000s       5.96e-06s      1    61   InplaceDimShuffle{0,2,1}(Elemwise{mul,no_inplace}.0)
+   0.0%   100.0%       0.000s       5.96e-06s      1    29   Subtensor{::int64}(IncSubtensor{InplaceInc;int64::}.0, Constant{-1})
+   0.0%   100.0%       0.000s       5.01e-06s      1    52   Subtensor{int64:int64:int8}(x, ScalarFromTensor.0, ScalarFromTensor.0, Constant{1})
+   0.0%   100.0%       0.000s       4.05e-06s      1     2   InplaceDimShuffle{1,0}(W)
+   0.0%   100.0%       0.000s       3.81e-06s      1    51   Subtensor{int64:int64:int64}(x, ScalarFromTensor.0, ScalarFromTensor.0, Constant{-1})
+   0.0%   100.0%       0.000s       3.10e-06s      1    32   Elemwise{Composite{[Switch(LT(*1 -> Composite{[Switch(LT(i0, i1), i1, i0)]}(Composite{[Switch(LT(i0, i1), i2, i0)]}(Composite{[sub(i0, Switch(LT(i1, i2), i2, i1))]}(i0, Composite{[add(i0, int_div(i1, i0))]}(i1, *2 -> add(i2, i0)), i3), i3, *2), i3), i4), *1, i4)]}}(Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}.0, TensorConstant{1}, TensorConstant{-1}, TensorConstant{0}, Elemwise{Composite{[Switch(LT(i0, i1), i1, i0)]}}.0)
+   0.0%   100.0%       0.000s       3.10e-06s      1    27   Elemwise{Composite{[Switch(LT(i0, i1), i1, i0)]}}(Elemwise{Composite{[Switch(LT(i0, i1), i0, i1)]}}.0, TensorConstant{0})
+   ... (remaining 46 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( fpass3 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 1.033088e+00s
+
+  Total time spent in calling the VM 1.019482e+00s (98.683%)
+  Total overhead (computing slices..) 1.360559e-02s (1.317%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  68.5%    68.5%       0.697s       4.65e-03s     C      150       3   theano.tensor.blas.Gemm
+  31.5%   100.0%       0.321s       1.60e-03s     C      200       4   theano.tensor.elemwise.Elemwise
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  68.5%    68.5%       0.697s       4.65e-03s     C      150        3   Gemm{no_inplace}
+  23.6%    92.1%       0.240s       2.40e-03s     C      100        2   Elemwise{ScalarSigmoid}[(0, 0)]
+   7.6%    99.7%       0.077s       1.55e-03s     C       50        1   Elemwise{Composite{[add(mul(i0, tanh(i1)), mul(sub(i2, i0), i3))]}}[(0, 1)]
+   0.3%   100.0%       0.003s       5.77e-05s     C       50        1   Elemwise{mul,no_inplace}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  22.9%    22.9%       0.233s       4.67e-03s     50     1   Gemm{no_inplace}(ri[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, U_copy, TensorConstant{1.0})
+  22.9%    45.8%       0.233s       4.66e-03s     50     0   Gemm{no_inplace}(zi[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, V_copy, TensorConstant{1.0})
+  22.7%    68.5%       0.231s       4.62e-03s     50     5   Gemm{no_inplace}(x[t], TensorConstant{1.0}, Elemwise{mul,no_inplace}.0, W_copy, TensorConstant{1.0})
+  11.8%    80.3%       0.120s       2.41e-03s     50     2   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+  11.8%    92.1%       0.120s       2.40e-03s     50     3   Elemwise{ScalarSigmoid}[(0, 0)](Gemm{no_inplace}.0)
+   7.6%    99.7%       0.077s       1.55e-03s     50     6   Elemwise{Composite{[add(mul(i0, tanh(i1)), mul(sub(i2, i0), i3))]}}[(0, 1)](Elemwise{ScalarSigmoid}[(0, 0)].0, Gemm{no_inplace}.0, TensorConstant{(1, 1) of 1.0}, <TensorType(float32, matrix)>)
+   0.3%   100.0%       0.003s       5.77e-05s     50     4   Elemwise{mul,no_inplace}(Elemwise{ScalarSigmoid}[(0, 0)].0, <TensorType(float32, matrix)>)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+
+Scan Op profiling ( grad_of_fpass3 )
+==================
+  Message: None
+  Time in 1 calls of the op (for a total of 50 steps) 1.825188e+00s
+
+  Total time spent in calling the VM 1.739412e+00s (95.300%)
+  Total overhead (computing slices..) 8.577585e-02s (4.700%)
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  68.0%    68.0%       1.180s       4.72e-03s     C      250       5   theano.tensor.blas.Gemm
+  26.9%    94.9%       0.467s       4.67e-03s     C      100       2   theano.tensor.blas.Dot22
+   5.1%   100.0%       0.089s       3.54e-04s     C      250       5   theano.tensor.elemwise.Elemwise
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  54.7%    54.7%       0.949s       4.75e-03s     C      200        4   Gemm{no_inplace}
+  26.9%    81.6%       0.467s       4.67e-03s     C      100        2   Dot22
+  13.3%    94.9%       0.231s       4.62e-03s     C       50        1   Gemm{inplace}
+   3.7%    98.6%       0.065s       1.29e-03s     C       50        1   Elemwise{Tanh}[(0, 0)]
+   0.4%    99.0%       0.007s       1.40e-04s     C       50        1   Elemwise{Composite{[add(mul(i0, i1), mul(i2, i3), i4, i5)]}}[(0, 0)]
+   0.4%    99.4%       0.007s       1.35e-04s     C       50        1   Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}
+   0.3%    99.7%       0.005s       1.08e-04s     C       50        1   Elemwise{mul}
+   0.3%   100.0%       0.005s       9.54e-05s     C       50        1   Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)]
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  13.8%    13.8%       0.239s       4.79e-03s     50     6   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, <TensorType(float32, matrix)>, Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)].0, TensorConstant{1.0})
+  13.7%    27.5%       0.239s       4.77e-03s     50     4   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, <TensorType(float32, matrix)>, Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}.0, TensorConstant{1.0})
+  13.7%    41.3%       0.239s       4.77e-03s     50     9   Gemm{no_inplace}(<TensorType(float32, matrix)>, TensorConstant{1.0}, <TensorType(float32, matrix)>, Elemwise{mul}.0, TensorConstant{1.0})
+  13.5%    54.8%       0.234s       4.68e-03s     50     7   Dot22(Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)].0, W_copy.T_replace)
+  13.4%    68.2%       0.233s       4.67e-03s     50     5   Dot22(Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}.0, V_copy.T_replace)
+  13.4%    81.6%       0.233s       4.65e-03s     50     0   Gemm{no_inplace}(x[t], TensorConstant{1.0}, <TensorType(float32, matrix)>, W_copy, TensorConstant{1.0})
+  13.3%    94.9%       0.231s       4.62e-03s     50    10   Gemm{inplace}(Dot22.0, TensorConstant{1.0}, Elemwise{mul}.0, U_copy.T_replace, TensorConstant{1.0})
+   3.7%    98.6%       0.065s       1.29e-03s     50     1   Elemwise{Tanh}[(0, 0)](Gemm{no_inplace}.0)
+   0.4%    99.0%       0.007s       1.40e-04s     50    11   Elemwise{Composite{[add(mul(i0, i1), mul(i2, i3), i4, i5)]}}[(0, 0)](Dot22.0, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>, Gemm{inplace}.0)
+   0.4%    99.4%       0.007s       1.35e-04s     50     2   Elemwise{Composite{[mul(i0, add(mul(i1, i2), neg(mul(i1, i3))), i4)]}}(<TensorType(float32, matrix)>, <TensorType(float32, matrix)>, Elemwise{Tanh}[(0, 0)].0, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>)
+   0.3%    99.7%       0.005s       1.08e-04s     50     8   Elemwise{mul}(<TensorType(float32, matrix)>, <TensorType(float32, matrix)>, Dot22.0, <TensorType(float32, matrix)>)
+   0.3%   100.0%       0.005s       9.54e-05s     50     3   Elemwise{Composite{[mul(sub(i0, sqr(i1)), i2, i3)]}}[(0, 1)](TensorConstant{(1, 1) of 1.0}, Elemwise{Tanh}[(0, 0)].0, <TensorType(float32, matrix)>, <TensorType(float32, matrix)>)
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Function profiling
+==================
+  Message: Sum of all(3) printed profiles at exit excluding Scan op profile.
+  Time in 3 calls to Function.__call__: 9.025323e+00s
+  Time in Function.fn.__call__: 9.025166e+00s (99.998%)
+  Time in thunks: 9.024765e+00s (99.994%)
+  Total compile time: 8.203820e+00s
+    Number of Apply nodes: 206
+    Theano Optimizer time: 7.225158e+00s
+       Theano validate time: 5.905604e-02s
+    Theano Linker time (includes C, CUDA code generation/compiling): 9.439092e-01s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  91.5%    91.5%       8.254s       1.38e+00s     Py       6       6   theano.scan_module.scan_op.Scan
+   6.3%    97.8%       0.569s       1.90e-01s     C        3       3   theano.tensor.blas.Dot22
+   1.2%    99.0%       0.111s       2.22e-02s     C        5       5   theano.tensor.basic.Reshape
+   0.7%    99.7%       0.061s       8.79e-04s     C       69      69   theano.tensor.elemwise.Elemwise
+   0.2%    99.9%       0.022s       2.02e-03s     C       11      11   theano.tensor.basic.Alloc
+   0.1%   100.0%       0.006s       1.11e-03s     C        5       5   theano.tensor.subtensor.IncSubtensor
+   0.0%   100.0%       0.002s       2.07e-03s     C        1       1   theano.tensor.basic.Join
+   0.0%   100.0%       0.000s       3.31e-06s     C       33      33   theano.tensor.subtensor.Subtensor
+   0.0%   100.0%       0.000s       2.67e-06s     C       20      20   theano.tensor.elemwise.DimShuffle
+   0.0%   100.0%       0.000s       1.60e-06s     C       21      21   theano.compile.ops.Shape_i
+   0.0%   100.0%       0.000s       8.25e-07s     C       26      26   theano.tensor.basic.ScalarFromTensor
+   0.0%   100.0%       0.000s       7.95e-07s     C        6       6   theano.compile.ops.Rebroadcast
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  28.3%    28.3%       2.550s       2.55e+00s     Py       1        1   forall_inplace,cpu,grad_of_fpass1}
+  20.2%    48.5%       1.825s       1.83e+00s     Py       1        1   forall_inplace,cpu,grad_of_fpass3}
+  11.6%    60.1%       1.046s       1.05e+00s     Py       1        1   for{cpu,fpass2}
+  11.6%    71.6%       1.042s       1.04e+00s     Py       1        1   for{cpu,fpass1}
+  11.4%    83.1%       1.033s       1.03e+00s     Py       1        1   for{cpu,fpass3}
+   8.4%    91.5%       0.757s       7.57e-01s     Py       1        1   forall_inplace,cpu,bpass2}
+   6.3%    97.8%       0.569s       1.90e-01s     C        3        3   Dot22
+   1.2%    99.0%       0.111s       2.22e-02s     C        5        5   Reshape{2}
+   0.3%    99.3%       0.028s       3.51e-03s     C        8        8   Elemwise{sub,no_inplace}
+   0.2%    99.6%       0.022s       2.02e-03s     C       11       11   Alloc
+   0.2%    99.7%       0.017s       8.37e-03s     C        2        2   Elemwise{mul,no_inplace}
+   0.1%    99.8%       0.008s       8.19e-03s     C        1        1   Elemwise{Composite{[mul(i0, sub(i1, i0))]}}
+   0.1%    99.9%       0.005s       2.68e-03s     C        2        2   IncSubtensor{InplaceInc;int64::}
+   0.1%    99.9%       0.005s       4.63e-03s     C        1        1   Elemwise{Mul}[(0, 0)]
+   0.0%   100.0%       0.003s       2.95e-03s     C        1        1   Elemwise{Composite{[sub(i0, sqr(i1))]}}[(0, 1)]
+   0.0%   100.0%       0.002s       2.07e-03s     C        1        1   Join
+   0.0%   100.0%       0.000s       6.85e-05s     C        2        2   IncSubtensor{InplaceInc;int64}
+   0.0%   100.0%       0.000s       4.79e-05s     C        1        1   IncSubtensor{InplaceSet;:int64:}
+   0.0%   100.0%       0.000s       4.20e-06s     C       10       10   Subtensor{int64:int64:int64}
+   0.0%   100.0%       0.000s       4.94e-06s     C        7        7   Subtensor{::int64}
+   ... (remaining 17 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Apply name>
+  28.3%    28.3%       2.550s       2.55e+00s      1    74   forall_inplace,cpu,grad_of_fpass1}(TensorConstant{50}, InplaceDimShuffle{0,2,1}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{::int64}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, V, U, W, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0)
+  20.2%    48.5%       1.825s       1.83e+00s      1    62   forall_inplace,cpu,grad_of_fpass3}(TensorConstant{50}, Elemwise{sub}.0, InplaceDimShuffle{0,2,1}.0, Elemwise{mul,no_inplace}.0, Elemwise{sub}.0, InplaceDimShuffle{0,2,1}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{::int64}.0, Subtensor{::int64}.0, Subtensor{::int64}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, Rebroadcast{0}.0, W, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0, InplaceDimShuffle{1,0}.0)
+  11.6%    60.1%       1.046s       1.05e+00s      1    29   for{cpu,fpass2}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(50, 80, 1..00) of 0.0}, TensorConstant{50}, TensorConstant{50}, TensorConstant{50}, V, U, W)
+  11.6%    71.6%       1.042s       1.04e+00s      1    71   for{cpu,fpass1}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(51, 80, 1..00) of 0.0}, V, U, W)
+  11.4%    83.1%       1.033s       1.03e+00s      1    53   for{cpu,fpass3}(TensorConstant{50}, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, Subtensor{int64:int64:int8}.0, TensorConstant{(51, 80, 1..00) of 0.0}, TensorConstant{50}, TensorConstant{50}, V, U, W)
+   8.4%    91.5%       0.757s       7.57e-01s      1    45   forall_inplace,cpu,bpass2}(TensorConstant{50}, Elemwise{sub,no_inplace}.0, Elemwise{sub,no_inplace}.0, Elemwise{Composite{[sub(i0, sqr(i1))]}}[(0, 1)].0, Elemwise{mul,no_inplace}.0, Elemwise{Composite{[mul(i0, sub(i1, i0))]}}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0, IncSubtensor{InplaceSet;:int64:}.0, TensorConstant{50}, TensorConstant{50}, TensorConstant{50}, InplaceDimShuffle{1,0}.0, Inplac
+   2.2%    93.7%       0.200s       2.00e-01s      1    59   Dot22(Reshape{2}.0, InplaceDimShuffle{1,0}.0)
+   2.0%    95.7%       0.185s       1.85e-01s      1    61   Dot22(Elemwise{Mul}[(0, 0)].0, InplaceDimShuffle{1,0}.0)
+   2.0%    97.8%       0.184s       1.84e-01s      1    58   Dot22(Reshape{2}.0, InplaceDimShuffle{1,0}.0)
+   0.5%    98.2%       0.041s       4.12e-02s      1    53   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   0.4%    98.6%       0.035s       3.50e-02s      1    52   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   0.4%    99.0%       0.035s       3.47e-02s      1    54   Reshape{2}(InplaceDimShuffle{2,0,1}.0, TensorConstant{[1000 4000]})
+   0.1%    99.1%       0.008s       8.41e-03s      1    39   Elemwise{mul,no_inplace}(Subtensor{int64:int64:int64}.0, Elemwise{sub,no_inplace}.0)
+   0.1%    99.2%       0.008s       8.35e-03s      1    42   Elemwise{sub,no_inplace}(Subtensor{int64:int64:int64}.0, Subtensor{int64:int64:int64}.0)
+   0.1%    99.3%       0.008s       8.34e-03s      1    59   Elemwise{mul,no_inplace}(Subtensor{::int64}.0, Subtensor{int64:int64:int64}.0)
+   0.1%    99.4%       0.008s       8.19e-03s      1    36   Elemwise{Composite{[mul(i0, sub(i1, i0))]}}(Subtensor{int64:int64:int64}.0, TensorConstant{(1, 1, 1) of 1.0})
+   0.1%    99.4%       0.007s       6.63e-03s      1    57   Elemwise{sub}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{::int64}.0)
+   0.1%    99.5%       0.007s       6.60e-03s      1    58   Elemwise{sub}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{::int64}.0)
+   0.1%    99.6%       0.006s       6.48e-03s      1    35   Elemwise{sub,no_inplace}(TensorConstant{(1, 1, 1) of 1.0}, Subtensor{int64:int64:int64}.0)
+   0.1%    99.6%       0.005s       4.96e-03s      1     9   Alloc(TensorConstant{(1, 1, 1) of 0.0}, TensorConstant{50}, TensorConstant{80}, TensorConstant{1000})
+   ... (remaining 186 Apply instances account for 0.36%(0.03s) of the runtime)
+
