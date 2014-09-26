@@ -68,12 +68,12 @@ def main():
         pre_h.name = 'pre_h'
         new_h = TT.tanh(pre_h)
         new_h.name = 'new_h'
-        return new_h, pre_h
+        return new_h
 
-    (h, pre_h), _ = theano.scan(rnn_step,
+    h, _ = theano.scan(rnn_step,
             sequences=[x],
             n_steps=seq_len,
-            outputs_info=[TT.zeros_like(x[0]), None],
+            outputs_info=[TT.zeros_like(x[0])],
             name='fpass')
     cost = h[-1].sum()
     grad1 = TT.grad(cost, [W])
