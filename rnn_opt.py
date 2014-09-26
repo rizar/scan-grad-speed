@@ -73,9 +73,10 @@ def main():
         TT.shape_padleft(TT.zeros_like(pre_h[0])),
         pre_h[:-1]])
     eh, _ = theano.scan(grad_step,
-            sequences=[x[::-1], h[::-1], pre_h[::-1]],
+            sequences=[x, h, pre_h],
             n_steps=seq_len,
             outputs_info=[TT.ones_like(x[0])],
+            go_backwards=True,
             name='bpass')
     eh = TT.concatenate([
         eh[1:],
