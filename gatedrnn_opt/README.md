@@ -78,3 +78,7 @@ available `PushOutDot1` is a simplified version of what we need.
 
 * A potential reduction of overhead would help but not critically (takes less than 15% in total).
 
+References
+----------
+
+Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Fethi Bougares, Holger Schwenk and Yoshua Bengio. Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation. EMNLP 2014. http://arxiv.org/abs/1406.1078
