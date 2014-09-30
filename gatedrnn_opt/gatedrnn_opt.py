@@ -49,7 +49,8 @@ def main():
 
     init = TT.alloc(numpy.float32(0), batch_size, dim)
 
-    # Backward pass
+    # My simplified backward pass, that does not
+    # compute gradients w.r. weight matrices.
     def grad_step(
             # sequences
             h, r, z, new_h,
@@ -89,7 +90,7 @@ def main():
 
         return e_h, e_pre_r, e_pre_z, e_pre_h
 
-    # Forward pass
+    # Forward pass with no extra outputs
     def rnn_step1(
             # sequences
             x, ri, zi,
@@ -107,7 +108,7 @@ def main():
         res_h = z * new_h + (1 - z) * h
         return res_h
 
-    # Forward pass
+    # Forward pass with extra outputs
     def rnn_step3(
             # sequences
             x, ri, zi,
@@ -134,7 +135,7 @@ def main():
     cost = h[-1].sum()
     grad1 = TT.grad(cost, [U, V, W])
 
-    # Gradient computation - method2
+    # Gradient computation - method 2
     res, _ = theano.scan(rnn_step3,
             sequences=[x, ri, zi],
             n_steps=seq_len,
@@ -161,7 +162,7 @@ def main():
     eW = (h * r).dot(e_pre_h.T)
     grad2 = [eU, eV, eW]
 
-    # Gradient computation - method3
+    # Gradient computation - method 3
     res, _ = theano.scan(rnn_step3,
             sequences=[x, ri, zi],
             n_steps=seq_len,
@@ -171,12 +172,12 @@ def main():
     cost = h[-1].sum()
     grad3 = TT.grad(cost, [U, V, W])
 
-    logger.info("Compile a function")
+    logger.info("Compile functions")
     func1 = theano.function(inputs=[x, ri, zi], outputs=grad1, name="grad1")
     func2 = theano.function(inputs=[x, ri, zi], outputs=grad2, name="grad2")
     func3 = theano.function(inputs=[x, ri, zi], outputs=grad3, name="grad3")
 
-    logger.info("Run the function")
+    logger.info("Run")
     on_gpu = theano.config.device == 'gpu'
     times = 1
     if on_gpu:

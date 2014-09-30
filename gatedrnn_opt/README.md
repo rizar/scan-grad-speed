@@ -3,8 +3,13 @@ backpropagation through time for a gated RNN [1].
 I compare three methods: 
 
 * using TT.grad as provided by Theano
-* using my own backward pass
+* using my own backward pass that moves some dot products from internal
+scan graph and merges them
 * taking TT.grad, but forcing additional outputs for the forward pass
+
+The code is in `gatedrnn_opt.py`, the profiles are in `profile-gatedopt-580.txt` and
+`profmem-gatedopt-quadro.txt` for different gpus respectively. Pydotprint outputs
+are also available.
 
 Results
 -------
@@ -59,11 +64,17 @@ TT.grad + extra outputs: 19.s
 * backward pass calls: 11.3s
 * backward pass overhead: 2.22s
 
-Notes
------
+Discussion
+----------
     
-* For the third option one would expect to see 6 matrix multiplication in the gradient scan
+* For the third option one would expect to see 6 matrix multiplications in `grad_of_fpass3` scan
 (3 for propagating the gradient back and 3 for accumulation of gradient w.r. weight matrices). 
 There are however 7, indicating the fact that the hidden states before the reset gate
-are recomputed, despite being available as a forward pass output. It should be fixed.
+are recomputed, despite being available as a forward pass output
+(one can see that at `gatedrnn-cpu-laptop3_grad_of_fpass3_62.png`. It should be fixed.
+
+* It should be possible to write a scan optimization that does what I did here. Already
+available `PushOutDot1` is a simplified version of what we need.
+
+* A potential reduction of overhead would help but not critically (takes less than 15% in total).
 
