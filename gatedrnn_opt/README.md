@@ -7,7 +7,7 @@ I compare three methods:
 scan graph and merges them
 * taking TT.grad, but forcing additional outputs for the forward pass
 
-The code is in `gatedrnn_opt.py`, the profiles are in `profile-gatedopt-580.txt` and
+The code is in `gatedrnn_opt.py`, the profiles are in `profile-gatedopt-480.txt` and
 `profmem-gatedopt-quadro.txt` for different gpus respectively. Pydotprint outputs
 are also available.
 
