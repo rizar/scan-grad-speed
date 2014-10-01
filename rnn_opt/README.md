@@ -9,7 +9,7 @@ was inefficient computation of the gradient with respect to the parameter matrix
 Results
 -------
 
-For 50 calls on TITAN BLACK:
+For 50 calls on Quadro K6000:
 
 * TT.grad: 4.73s
 * my grad: 2.79s
