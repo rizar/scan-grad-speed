@@ -14,7 +14,10 @@ are also available.
 Results
 -------
 
-#####50 calls on Quadro
+I repeated computation 50 times with sequences of length 50, 
+batch size 80 and hidden layer size 1000.
+
+#####Quadro
 
 TT.grad: 15s
 
@@ -39,7 +42,7 @@ TT.grad + extra outputs: 13.6s
 * backward pass calls: 7.92s
 * backward pass overhead: 1.66s
 
-#####50 calls on GTX 480
+#####GTX 480
 
 TT.grad: 21.8s
 
