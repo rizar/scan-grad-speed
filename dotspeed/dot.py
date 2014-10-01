@@ -46,6 +46,10 @@ def main():
     func10 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y) + z], name="gemm1fc")
     func11 = theano.function(inputs=[x, y, z], outputs=[x.dot(y.T) + z], name="gemm1cf")
     func12 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y.T) + z], name="gemm1ff")
+    func13 = theano.function(inputs=[x, y, z], outputs=[x.dot(y) + z], name="gemm2cc")
+    func14 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y) + z], name="gemm2fc")
+    func15 = theano.function(inputs=[x, y, z], outputs=[x.dot(y.T) + z], name="gemm2cf")
+    func16 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y.T) + z], name="gemm2ff")
 
     logger.info("Run")
     times = 50 if theano.config.device == 'cpu' else 500
@@ -62,6 +66,10 @@ def main():
         func10(a.T, a.T, b)
         func11(a, a, b)
         func12(a.T, a, b)
+        func13(a.T, b, a.T)
+        func14(a, b, a.T)
+        func15(a.T, b, a.T)
+        func16(a, b,  a.T)
     logger.info("Finished")
 
 if __name__ == "__main__":
