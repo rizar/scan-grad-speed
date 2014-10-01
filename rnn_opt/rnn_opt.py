@@ -16,6 +16,8 @@ def watch(x):
     return TP.Print(global_fn=func)(x)
 
 def main():
+    numpy.random.seed(1)
+
     parser = argparse.ArgumentParser()
     parser.add_argument('name')
     args = parser.parse_args()
@@ -53,7 +55,7 @@ def main():
         e_pre_h.name = 'e_pre_h'
         e_h = e_pre_h.dot(WT)
         e_h.name = 'e_h'
-        return e_h
+        return e_h, e_pre_h
 
     # Forward pass
     def rnn_step(
@@ -84,22 +86,17 @@ def main():
         TT.shape_padleft(TT.zeros_like(h[0])),
         h[:-1]])
     h.name = 'h*'
-    eh, _ = theano.scan(grad_step,
+    (_1, e_pre_h), _2 = theano.scan(grad_step,
             sequences=[h, mult],
             n_steps=seq_len,
-            outputs_info=[TT.ones_like(x[0])],
+            outputs_info=[TT.ones_like(x[0]), None],
             go_backwards=True,
             name='bpass')
-    eh.name = 'eh'
-    eh = TT.concatenate([
-        eh[1:],
-        TT.shape_padleft(TT.ones_like(eh[0]))])
-    eh.name = 'eh*'
     h = h.dimshuffle(2, 0, 1).reshape((dim, n_words))
     h.name = 'h_shu'
-    eh = eh.dimshuffle(2, 0, 1).reshape((dim, n_words)).T
-    eh.name = 'eh_shu'
-    eW = h.dot(eh)
+    e_pre_h = e_pre_h[::-1].dimshuffle(2, 0, 1).reshape((dim, n_words)).T
+    e_pre_h.name = 'e_pre_h_shu'
+    eW = h.dot(e_pre_h)
     eW.name = 'eW'
     grad2 = [eW]
 
