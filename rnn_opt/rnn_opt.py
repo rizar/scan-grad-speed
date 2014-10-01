@@ -114,7 +114,7 @@ def main():
         g1 = func1(x_value)[0]
         g2 = func2(x_value)[0]
         if not on_gpu:
-            print g1.sum(), g2.sum()
+            print numpy.abs(g1).mean(), numpy.abs(g2).mean(), numpy.abs(g1 - g2).mean()
 
     logger.info("Finished")
 
