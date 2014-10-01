@@ -33,9 +33,9 @@ def main():
 
     logger.info("Compiling")
     func1 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='case1cc')
-    func2 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='case1cc')
-    func3 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='case1cc')
-    func4 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='case1cc')
+    func2 = theano.function(inputs=[x, y], outputs=[x.T.dot(y)], name='case1fc')
+    func3 = theano.function(inputs=[x, y], outputs=[x.dot(y.T)], name='case1cf')
+    func4 = theano.function(inputs=[x, y], outputs=[x.T.dot(y.T)], name='case1ff')
     func5 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='case2cc')
     func6 = theano.function(inputs=[x, y], outputs=[x.T.dot(y)], name='case2fc')
     func7 = theano.function(inputs=[x, y], outputs=[x.dot(y.T)], name='case2cf')
@@ -45,6 +45,9 @@ def main():
     times = 500
     for i in range(times):
         func1(a, a.T)
+        func2(a.T, a.T)
+        func3(a, a)
+        func4(a.T, a)
         func5(a.T, b)
         func6(a, b)
         func7(a.T, b)

@@ -1,0 +1,723 @@
+Using gpu device 0: Quadro K6000
+/u/bahdanau/Dist/theano/theano/gof/vm.py:719: UserWarning: CVM does not support memory profile, using Stack VM.
+  'CVM does not support memory profile, using Stack VM.')
+Function profiling
+==================
+  Message: case1cc
+  Time in 500 calls to Function.__call__: 8.862135e-01s
+  Time in Function.fn.__call__: 8.754606e-01s (98.787%)
+  Time in thunks: 7.069502e-01s (79.772%)
+  Total compile time: 3.171492e-02s
+    Number of Apply nodes: 4
+    Theano Optimizer time: 2.030587e-02s
+       Theano validate time: 2.653599e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.660990e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  52.2%    52.2%       0.369s       7.38e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+  24.9%    77.1%       0.176s       3.52e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+  22.9%   100.0%       0.162s       1.62e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  52.2%    52.2%       0.369s       7.38e-04s     C      500        1   HostFromGpu
+  24.9%    77.1%       0.176s       3.52e-04s     C      500        1   GpuDot22
+  22.9%   100.0%       0.162s       1.62e-04s     C     1000        2   GpuFromHost
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  52.2%    52.2%       0.369s       7.38e-04s    500     3                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+  24.9%    77.1%       0.176s       3.52e-04s    500     2                     GpuDot22(GpuFromHost.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    input 1: dtype=float32, shape=(80, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+  17.3%    94.4%       0.122s       2.44e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   5.6%   100.0%       0.040s       7.99e-05s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=c 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 8438KB (8438KB)
+    Max if linker=cvm(default): 7813KB (7813KB)
+    Memory saved if views are used: 0KB (0KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 625KB (625KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuFromHost.0, GpuFromHost.0)
+        320000B  [(1000, 80)] c GpuFromHost(x)
+        320000B  [(80, 1000)] c GpuFromHost(y)
+   ... (remaining 0 Apply account for    0B/8640000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case1fc
+  Time in 500 calls to Function.__call__: 9.177589e-01s
+  Time in Function.fn.__call__: 9.068630e-01s (98.813%)
+  Time in thunks: 7.289140e-01s (79.423%)
+  Total compile time: 2.705407e-02s
+    Number of Apply nodes: 5
+    Theano Optimizer time: 1.651120e-02s
+       Theano validate time: 1.447201e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.836943e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  50.5%    50.5%       0.368s       7.35e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+  25.5%    76.0%       0.186s       1.86e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+  23.8%    99.8%       0.173s       3.47e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+   0.2%   100.0%       0.002s       3.19e-06s     C      500       1   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  50.5%    50.5%       0.368s       7.35e-04s     C      500        1   HostFromGpu
+  25.5%    76.0%       0.186s       1.86e-04s     C     1000        2   GpuFromHost
+  23.8%    99.8%       0.173s       3.47e-04s     C      500        1   GpuDot22
+   0.2%   100.0%       0.002s       3.19e-06s     C      500        1   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  50.5%    50.5%       0.368s       7.35e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+  23.8%    74.2%       0.173s       3.47e-04s    500     3                     GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  16.6%    90.9%       0.121s       2.42e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   8.9%    99.8%       0.065s       1.30e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   0.2%   100.0%       0.002s       3.19e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 8438KB (8438KB)
+    Max if linker=cvm(default): 7813KB (7813KB)
+    Memory saved if views are used: 313KB (313KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 625KB (625KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+        320000B  [(80, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+        320000B  [(1000, 80)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+   ... (remaining 0 Apply account for    0B/8960000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case1cf
+  Time in 500 calls to Function.__call__: 8.420734e-01s
+  Time in Function.fn.__call__: 8.312190e-01s (98.711%)
+  Time in thunks: 6.549592e-01s (77.779%)
+  Total compile time: 2.635407e-02s
+    Number of Apply nodes: 5
+    Theano Optimizer time: 1.576495e-02s
+       Theano validate time: 1.461506e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.667904e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  55.9%    55.9%       0.366s       7.33e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+  26.2%    82.1%       0.171s       3.43e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+  17.7%    99.8%       0.116s       1.16e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+   0.2%   100.0%       0.002s       3.16e-06s     C      500       1   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  55.9%    55.9%       0.366s       7.33e-04s     C      500        1   HostFromGpu
+  26.2%    82.1%       0.171s       3.43e-04s     C      500        1   GpuDot22
+  17.7%    99.8%       0.116s       1.16e-04s     C     1000        2   GpuFromHost
+   0.2%   100.0%       0.002s       3.16e-06s     C      500        1   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  55.9%    55.9%       0.366s       7.33e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+  26.2%    82.1%       0.171s       3.43e-04s    500     3                     GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  12.8%    94.9%       0.084s       1.67e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+   4.9%    99.8%       0.032s       6.43e-05s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+   0.2%   100.0%       0.002s       3.16e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 8438KB (8438KB)
+    Max if linker=cvm(default): 7813KB (7813KB)
+    Memory saved if views are used: 313KB (313KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 625KB (625KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+        320000B  [(80, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(1000, 80)] c GpuFromHost(x)
+        320000B  [(1000, 80)] c GpuFromHost(y)
+   ... (remaining 0 Apply account for    0B/8960000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case1ff
+  Time in 500 calls to Function.__call__: 8.999028e-01s
+  Time in Function.fn.__call__: 8.888965e-01s (98.777%)
+  Time in thunks: 7.016432e-01s (77.969%)
+  Total compile time: 3.008986e-02s
+    Number of Apply nodes: 6
+    Theano Optimizer time: 1.883388e-02s
+       Theano validate time: 2.164841e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 3.063202e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  52.3%    52.3%       0.367s       7.34e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+  25.9%    78.2%       0.182s       3.64e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+  21.3%    99.6%       0.150s       1.50e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+   0.4%   100.0%       0.003s       3.05e-06s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  52.3%    52.3%       0.367s       7.34e-04s     C      500        1   HostFromGpu
+  25.9%    78.2%       0.182s       3.64e-04s     C      500        1   GpuDot22
+  21.3%    99.6%       0.150s       1.50e-04s     C     1000        2   GpuFromHost
+   0.4%   100.0%       0.003s       3.05e-06s     C     1000        2   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  52.3%    52.3%       0.367s       7.34e-04s    500     5                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+  25.9%    78.2%       0.182s       3.64e-04s    500     4                     GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  12.0%    90.2%       0.084s       1.68e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+   9.3%    99.6%       0.066s       1.31e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   0.2%    99.8%       0.002s       3.19e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+   0.2%   100.0%       0.001s       2.91e-06s    500     3                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 8438KB (8438KB)
+    Max if linker=cvm(default): 7813KB (7813KB)
+    Memory saved if views are used: 625KB (625KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 625KB (625KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+        320000B  [(1000, 80)] c GpuFromHost(y)
+        320000B  [(80, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(1000, 80)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+   ... (remaining 0 Apply account for    0B/9280000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case2cc
+  Time in 500 calls to Function.__call__: 8.433003e-01s
+  Time in Function.fn.__call__: 8.323534e-01s (98.702%)
+  Time in thunks: 6.640155e-01s (78.740%)
+  Total compile time: 2.841997e-02s
+    Number of Apply nodes: 4
+    Theano Optimizer time: 1.856804e-02s
+       Theano validate time: 1.251698e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.156019e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  71.5%    71.5%       0.475s       4.75e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+  19.3%    90.8%       0.128s       2.56e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+   9.2%   100.0%       0.061s       1.22e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  71.5%    71.5%       0.475s       4.75e-04s     C     1000        2   GpuFromHost
+  19.3%    90.8%       0.128s       2.56e-04s     C      500        1   GpuDot22
+   9.2%   100.0%       0.061s       1.22e-04s     C      500        1   HostFromGpu
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  52.9%    52.9%       0.351s       7.03e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  19.3%    72.2%       0.128s       2.56e-04s    500     2                     GpuDot22(GpuFromHost.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+  18.6%    90.8%       0.123s       2.46e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   9.2%   100.0%       0.061s       1.22e-04s    500     3                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 4844KB (4844KB)
+    Max if linker=cvm(default): 4531KB (4531KB)
+    Memory saved if views are used: 0KB (0KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 312KB (312KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] c HostFromGpu(GpuDot22.0)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+        320000B  [(80, 1000)] c GpuDot22(GpuFromHost.0, GpuFromHost.0)
+   ... (remaining 0 Apply account for    0B/4960000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case2fc
+  Time in 500 calls to Function.__call__: 8.275192e-01s
+  Time in Function.fn.__call__: 8.162513e-01s (98.638%)
+  Time in thunks: 6.388509e-01s (77.201%)
+  Total compile time: 2.685404e-02s
+    Number of Apply nodes: 5
+    Theano Optimizer time: 1.652193e-02s
+       Theano validate time: 1.490116e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.591133e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  73.3%    73.3%       0.468s       4.68e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+  18.1%    91.3%       0.115s       2.31e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+   8.4%    99.7%       0.054s       1.08e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+   0.3%   100.0%       0.002s       3.24e-06s     C      500       1   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  73.3%    73.3%       0.468s       4.68e-04s     C     1000        2   GpuFromHost
+  18.1%    91.3%       0.115s       2.31e-04s     C      500        1   GpuDot22
+   8.4%    99.7%       0.054s       1.08e-04s     C      500        1   HostFromGpu
+   0.3%   100.0%       0.002s       3.24e-06s     C      500        1   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  54.5%    54.5%       0.348s       6.96e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  18.8%    73.3%       0.120s       2.40e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+  18.1%    91.3%       0.115s       2.31e-04s    500     3                     GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   8.4%    99.7%       0.054s       1.08e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   0.3%   100.0%       0.002s       3.24e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 4844KB (4844KB)
+    Max if linker=cvm(default): 4531KB (4531KB)
+    Memory saved if views are used: 313KB (313KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 312KB (312KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+        320000B  [(80, 1000)] c HostFromGpu(GpuDot22.0)
+        320000B  [(80, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(1000, 80)] c GpuFromHost(x)
+   ... (remaining 0 Apply account for    0B/5280000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case2cf
+  Time in 500 calls to Function.__call__: 8.535287e-01s
+  Time in Function.fn.__call__: 8.428187e-01s (98.745%)
+  Time in thunks: 6.652179e-01s (77.937%)
+  Total compile time: 2.597594e-02s
+    Number of Apply nodes: 5
+    Theano Optimizer time: 1.572394e-02s
+       Theano validate time: 1.463890e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.590179e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  70.8%    70.8%       0.471s       4.71e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+  19.7%    90.5%       0.131s       2.63e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+   9.3%    99.8%       0.062s       1.23e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+   0.2%   100.0%       0.002s       3.11e-06s     C      500       1   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  70.8%    70.8%       0.471s       4.71e-04s     C     1000        2   GpuFromHost
+  19.7%    90.5%       0.131s       2.63e-04s     C      500        1   GpuDot22
+   9.3%    99.8%       0.062s       1.23e-04s     C      500        1   HostFromGpu
+   0.2%   100.0%       0.002s       3.11e-06s     C      500        1   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  52.3%    52.3%       0.348s       6.95e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  19.7%    72.0%       0.131s       2.63e-04s    500     3                     GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+  18.5%    90.5%       0.123s       2.46e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   9.3%    99.8%       0.062s       1.23e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   0.2%   100.0%       0.002s       3.11e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 4844KB (4844KB)
+    Max if linker=cvm(default): 4531KB (4531KB)
+    Memory saved if views are used: 3906KB (3906KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 312KB (312KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+       4000000B  [(1000, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(80, 1000)] c HostFromGpu(GpuDot22.0)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+        320000B  [(80, 1000)] c GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+   ... (remaining 0 Apply account for    0B/8960000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: case2ff
+  Time in 500 calls to Function.__call__: 8.310418e-01s
+  Time in Function.fn.__call__: 8.201380e-01s (98.688%)
+  Time in thunks: 6.339018e-01s (76.278%)
+  Total compile time: 2.949905e-02s
+    Number of Apply nodes: 6
+    Theano Optimizer time: 1.879096e-02s
+       Theano validate time: 2.121925e-04s
+    Theano Linker time (includes C, CUDA code generation/compiling): 3.030062e-03s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  72.5%    72.5%       0.460s       4.60e-04s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuFromHost
+  18.5%    91.0%       0.117s       2.34e-04s     C      500       1   theano.sandbox.cuda.blas.GpuDot22
+   8.5%    99.5%       0.054s       1.07e-04s     C      500       1   theano.sandbox.cuda.basic_ops.HostFromGpu
+   0.5%   100.0%       0.003s       3.38e-06s     C     1000       2   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  72.5%    72.5%       0.460s       4.60e-04s     C     1000        2   GpuFromHost
+  18.5%    91.0%       0.117s       2.34e-04s     C      500        1   GpuDot22
+   8.5%    99.5%       0.054s       1.07e-04s     C      500        1   HostFromGpu
+   0.5%   100.0%       0.003s       3.38e-06s     C     1000        2   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+  54.9%    54.9%       0.348s       6.96e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+  18.5%    73.3%       0.117s       2.34e-04s    500     4                     GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+  17.7%    91.0%       0.112s       2.24e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+   8.5%    99.5%       0.054s       1.07e-04s    500     5                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   0.3%    99.7%       0.002s       3.41e-06s    500     3                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+   0.3%   100.0%       0.002s       3.35e-06s    500     2                     GpuDimShuffle{1,0}(GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+   ... (remaining 0 Apply instances account for 0.00%(0.00s) of the runtime)
+
+Memory Profile
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 4844KB (4844KB)
+    Max if linker=cvm(default): 4531KB (4531KB)
+    Memory saved if views are used: 4219KB (4219KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 312KB (312KB)
+
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+        320000B  [(80, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(1000, 80)] c GpuFromHost(x)
+        320000B  [(80, 1000)] c HostFromGpu(GpuDot22.0)
+   ... (remaining 0 Apply account for    0B/9280000B ((0.00%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
+Function profiling
+==================
+  Message: Sum of all(8) printed profiles at exit excluding Scan op profile.
+  Time in 4000 calls to Function.__call__: 6.901339e+00s
+  Time in Function.fn.__call__: 6.814000e+00s (98.734%)
+  Time in thunks: 5.394453e+00s (78.165%)
+  Total compile time: 2.259619e-01s
+    Number of Apply nodes: 40
+    Theano Optimizer time: 1.410208e-01s
+       Theano validate time: 1.405478e-03s
+    Theano Linker time (includes C, CUDA code generation/compiling): 2.159643e-02s
+
+Class
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Class name>
+  46.1%    46.1%       2.487s       3.11e-04s     C     8000      16   theano.sandbox.cuda.basic_ops.GpuFromHost
+  31.5%    77.6%       1.700s       4.25e-04s     C     4000       8   theano.sandbox.cuda.basic_ops.HostFromGpu
+  22.1%    99.8%       1.195s       2.99e-04s     C     4000       8   theano.sandbox.cuda.blas.GpuDot22
+   0.2%   100.0%       0.013s       3.20e-06s     C     4000       8   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+
+Ops
+---
+<% time> <sum %> <apply time> <time per call> <type> <#call> <#apply> <Op name>
+  46.1%    46.1%       2.487s       3.11e-04s     C     8000       16   GpuFromHost
+  31.5%    77.6%       1.700s       4.25e-04s     C     4000        8   HostFromGpu
+  22.1%    99.8%       1.195s       2.99e-04s     C     4000        8   GpuDot22
+   0.2%   100.0%       0.013s       3.20e-06s     C     4000        8   GpuDimShuffle{1,0}
+   ... (remaining 0 Ops account for   0.00%(0.00s) of the runtime)
+
+Apply
+------
+<% time> <sum %> <apply time> <time per call> <#call> <id> <Mflops> <Gflops/s> <Apply name>
+   6.8%     6.8%       0.369s       7.38e-04s    500     3                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+   6.8%    13.7%       0.368s       7.35e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+   6.8%    20.5%       0.367s       7.34e-04s    500     5                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+   6.8%    27.3%       0.366s       7.33e-04s    500     4                     HostFromGpu(GpuDot22.0)
+    input 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+   6.5%    33.8%       0.351s       7.03e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   6.5%    40.2%       0.348s       6.96e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   6.4%    46.7%       0.348s       6.96e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   6.4%    53.1%       0.348s       6.95e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(1000, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   3.4%    56.5%       0.182s       3.64e-04s    500     4                     GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   3.3%    59.7%       0.176s       3.52e-04s    500     2                     GpuDot22(GpuFromHost.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    input 1: dtype=float32, shape=(80, 1000), strides=c 
+    output 0: dtype=float32, shape=(1000, 1000), strides=c 
+   3.2%    63.0%       0.173s       3.47e-04s    500     3                     GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(1, 1000) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   3.2%    66.1%       0.171s       3.43e-04s    500     3                     GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+    input 1: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    output 0: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+   2.4%    68.6%       0.131s       2.63e-04s    500     3                     GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   2.4%    70.9%       0.128s       2.56e-04s    500     2                     GpuDot22(GpuFromHost.0, GpuFromHost.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1000, 1) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   2.3%    73.2%       0.123s       2.46e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   2.3%    75.5%       0.123s       2.46e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   2.3%    77.8%       0.122s       2.44e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=c 
+   2.2%    80.0%       0.121s       2.42e-04s    500     0                     GpuFromHost(y)
+    input 0: dtype=float32, shape=(80, 1000), strides=(4, 320) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   2.2%    82.2%       0.120s       2.40e-04s    500     1                     GpuFromHost(x)
+    input 0: dtype=float32, shape=(1000, 80), strides=c 
+    output 0: dtype=float32, shape=(1000, 80), strides=(80, 1) 
+   2.2%    84.4%       0.117s       2.34e-04s    500     4                     GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+    input 0: dtype=float32, shape=(80, 1000), strides=(1, 80) 
+    input 1: dtype=float32, shape=(1000, 1000), strides=(1, 1000) 
+    output 0: dtype=float32, shape=(80, 1000), strides=(1000, 1) 
+   ... (remaining 20 Apply instances account for 15.58%(0.84s) of the runtime)
+
+Memory Profile (the max between all functions in that profile)
+(Sparse variables are ignored)
+(For values in brackets, it's for linker = c|py
+---
+    Max if no gc (allow_gc=False): 8438KB (8438KB)
+    Max if linker=cvm(default): 7813KB (7813KB)
+    Memory saved if views are used: 4219KB (4219KB)
+    Memory saved if inplace ops are used: 0KB (0KB)
+    Memory saved if gc is enabled: 625KB (625KB)
+
+    This list is based on all functions in the profile
+    <Sum apply outputs (bytes)> <Apply outputs shape> <created/inplace/view> <Apply node>
+
+       4000000B  [(1000, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+       4000000B  [(1000, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuFromHost.0, GpuDimShuffle{1,0}.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuFromHost.0, GpuFromHost.0)
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuDimShuffle{1,0}.0)
+       4000000B  [(1000, 1000)] c HostFromGpu(GpuDot22.0)
+       4000000B  [(1000, 1000)] c GpuFromHost(y)
+       4000000B  [(1000, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+        320000B  [(80, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] c GpuDot22(GpuDimShuffle{1,0}.0, GpuFromHost.0)
+        320000B  [(80, 1000)] c GpuFromHost(y)
+        320000B  [(80, 1000)] v GpuDimShuffle{1,0}(GpuFromHost.0)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+        320000B  [(80, 1000)] c GpuFromHost(x)
+   ... (remaining 20 Apply account for 6400000B/64320000B ((9.95%)) of the Apply with dense outputs sizes)
+
+    <created/inplace/view> is taken from the Op's declaration.
+    Apply nodes marked 'inplace' or 'view' may actually allocate memory, this is not reported here. If you use DebugMode, warnings will be emitted in those cases.
+
