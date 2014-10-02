@@ -31,6 +31,8 @@ def main():
 
     a = nr.normal(size=(n, m), scale=0.01).astype("float32")
     b = nr.normal(size=(n, n), scale=0.01).astype("float32")
+    c = nr.normal(size=(n, 2 * n), scale=0.01).astype("float32")
+    d = nr.normal(size=(m, 2 * n), scale=0.01).astype("float32")
 
     logger.info("Compiling DOTs")
     func1 = theano.function(inputs=[x, y], outputs=[x.dot(y)], name='dot1cc')
@@ -50,6 +52,8 @@ def main():
     func14 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y) + z], name="gemm2fc")
     func15 = theano.function(inputs=[x, y, z], outputs=[x.dot(y.T) + z], name="gemm2cf")
     func16 = theano.function(inputs=[x, y, z], outputs=[x.T.dot(y.T) + z], name="gemm2ff")
+    func17 = theano.function(inputs=[x, y, z], outputs=[x.dot(y) + z], name="gemm3")
+    func18 = theano.function(inputs=[x, y, z], outputs=[x.dot(y) + z], name="gemm4")
 
     logger.info("Run")
     times = 50 if theano.config.device == 'cpu' else 500
@@ -69,7 +73,9 @@ def main():
         func13(a.T, b, a.T)
         func14(a, b, a.T)
         func15(a.T, b, a.T)
-        func16(a, b,  a.T)
+        func16(a, b, a.T)
+        func17(a.T, c, d)
+        func18(a, d, c)
     logger.info("Finished")
 
 if __name__ == "__main__":

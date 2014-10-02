@@ -1,5 +1,7 @@
 ####Speed of matrix operations (in milliseconds):
 
+C stands for c order, F for Fortran order
+
 #####Dots:
 
 * (1000, 80) x (80, 1000)
@@ -27,4 +29,10 @@
     * F, C: 0.25
     * C, F: 0.27
     * F, F: 0.25
+
+* (80, 1000) x (1000, 2000) + (80, 2000)
+    * C, C: 0.46
+
+* (1000, 80) x (80, 2000) + (1000, 2000)
+    * C, C: 0.65
     
