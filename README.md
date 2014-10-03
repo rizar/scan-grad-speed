@@ -13,18 +13,24 @@ The following version of theano was used:
 Conclusions
 =======
 
-* We need a new optimization for scan. It should detect the following pattern:
+* We need a new optimization for scan. 
+It should detect the following pattern. Let W be an
+output of the scan, which _is not used in the scan as input_.
+ Let A[i] and B[i] be some intermediate 
+matrices of the internal scan graph 
+which are used to compute W as follows:
 
         for i in range(0, n):
             W += A[i].dot(B[i])
 
-and replace it with
+where `for` means iterations of the scan. We should replace it with
 
-        A = concatenate(A[0], A[1], ..., A[n - 1], axis=1)
-        B = concatenate(B[0], B[1], ..., B[n - 1])
-        W = A.dot(B)
+        C = concatenate(A[0], A[1], ..., A[n - 1], axis=1)
+        D = concatenate(B[0], B[1], ..., B[n - 1])
+        W = C.dot(D)
 
-I noticed speedups up to 2 times. 
+that is we _new outputs_ C and D, which are then used to compute W.
+I  could speed up things up to 2 times with this trick.
 
 * Somebody should find out why under certaun circumstances an explicit output
 of forward pass is recomputed during the backward pass (see function `grad3` 
